@@ -65,7 +65,7 @@ def get_store_visits(coords_list):
             if not coords_valid(item):
                 num_invalid_visits += 1
             else:
-                if not store_visit_count_dict.get(coords_hash(item)):
+                if store_visit_count_dict.get(coords_hash(item)) is None:
                     store_visit_count_dict[coords_hash(item)] = {'x': item['x'], 'y': item['y'], 'visits': 1}
                     continue
                 store_visit_count_dict[coords_hash(item)]['visits'] += 1
