@@ -33,8 +33,8 @@ def coords_valid(coords_dict, first_key='x', second_key='y'):
     if len(coords_dict.keys()) != 2:
         return False
     else:  # Checks if the x and y are present in coords dict
-        if not coords_dict.get(first_key) and \
-                not coords_dict.get(second_key):
+        if coords_dict.get(first_key) is None and \
+                coords_dict.get(second_key) is None:
             return False
         else:  # Checks if the values of the dict are integers
             for coord in coords_dict.values():
@@ -60,7 +60,9 @@ def get_store_visits(coords_list):
     # Loop through coords list
     for item in coords_list:
         try:
-            if not (item_is_dict(item) or coords_valid(item)):
+            if not item_is_dict(item):
+                num_invalid_visits += 1
+            if not coords_valid(item):
                 num_invalid_visits += 1
             else:
                 if not store_visit_count_dict.get(coords_hash(item)):
