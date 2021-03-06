@@ -59,19 +59,15 @@ def get_store_visits(coords_list):
 
     # Loop through coords list
     for item in coords_list:
-        try:
-            if not item_is_dict(item):
-                num_invalid_visits += 1
-            elif not coords_valid(item):
-                num_invalid_visits += 1
-            else:
-                if store_visit_count_dict.get(coords_hash(item)) is None:
-                    store_visit_count_dict[coords_hash(item)] = {'x': item['x'], 'y': item['y'], 'visits': 1}
-                    continue
-                store_visit_count_dict[coords_hash(item)]['visits'] += 1
-        except AttributeError:
+        if not item_is_dict(item):
             num_invalid_visits += 1
-            continue
+        elif not coords_valid(item):
+            num_invalid_visits += 1
+        else:
+            if store_visit_count_dict.get(coords_hash(item)) is None:
+                store_visit_count_dict[coords_hash(item)] = {'x': item['x'], 'y': item['y'], 'visits': 1}
+                continue
+            store_visit_count_dict[coords_hash(item)]['visits'] += 1
 
     # Include invalid entries
     store_visit_count_dict['invalid_visits'] = num_invalid_visits
